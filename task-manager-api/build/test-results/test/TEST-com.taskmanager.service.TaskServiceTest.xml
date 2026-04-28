@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TaskService Unit Tests" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-04-28T00:38:36.793Z" hostname="destroyer" time="0.186">
+  <properties/>
+  <testcase name="getAllTasks should return all tasks" classname="com.taskmanager.service.TaskServiceTest" time="0.155"/>
+  <testcase name="updateTask should update existing task" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <testcase name="getTaskById should return task when found" classname="com.taskmanager.service.TaskServiceTest" time="0.002"/>
+  <testcase name="getTasksByPriority should return filtered tasks" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <testcase name="updateTask should return null when task not found" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <testcase name="createTask should save task with defaults" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <testcase name="getTaskById should return empty when not found" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <testcase name="searchTasksByTitle should return matching tasks" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <testcase name="deleteTask should remove task by id" classname="com.taskmanager.service.TaskServiceTest" time="0.002"/>
+  <testcase name="getTasksByStatus should return filtered tasks" classname="com.taskmanager.service.TaskServiceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
