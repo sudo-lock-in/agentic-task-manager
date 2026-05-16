@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class TaskManagerApplication {
+public class TaskManagerApplication { 
 
     public static void main(String[] args) {
         SpringApplication.run(TaskManagerApplication.class, args);
