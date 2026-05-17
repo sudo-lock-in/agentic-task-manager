@@ -292,6 +292,3 @@ task-manager-api/
 - **Ollama Mistral** - AI integration
 - **Vanilla JavaScript** - Frontend
 
-## License
-
-This is a take-home assessment project.
