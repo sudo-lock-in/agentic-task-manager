@@ -1,7 +1,5 @@
-package com.taskmanager.service;
+package taskmanager;
 
-import com.taskmanager.config.OllamaConfig;
-import com.taskmanager.model.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

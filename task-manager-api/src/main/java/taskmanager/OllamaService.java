@@ -1,7 +1,5 @@
-package com.taskmanager.service;
+package taskmanager;
 
-import com.taskmanager.model.Task;
-import com.taskmanager.config.OllamaConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;

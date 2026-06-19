@@ -1,6 +1,5 @@
-package com.taskmanager.controller;
+package taskmanager;
 
-import com.taskmanager.model.Task;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

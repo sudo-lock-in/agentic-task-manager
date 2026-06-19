@@ -1,4 +1,4 @@
-package com.taskmanager.config;
+package taskmanager;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

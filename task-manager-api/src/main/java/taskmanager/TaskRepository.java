@@ -1,6 +1,5 @@
-package com.taskmanager.repository;
+package taskmanager;
 
-import com.taskmanager.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDate;

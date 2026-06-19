@@ -1,4 +1,4 @@
-package com.taskmanager.controller;
+package taskmanager;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,5 @@
-package com.taskmanager.service;
+package taskmanager;
 
-import com.taskmanager.model.Task;
-import com.taskmanager.repository.TaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

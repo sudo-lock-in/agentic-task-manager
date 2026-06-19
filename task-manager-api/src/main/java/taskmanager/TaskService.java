@@ -1,7 +1,5 @@
-package com.taskmanager.service;
+package taskmanager;
 
-import com.taskmanager.model.Task;
-import com.taskmanager.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

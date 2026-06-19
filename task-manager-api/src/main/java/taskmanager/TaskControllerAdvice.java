@@ -1,4 +1,4 @@
-package com.taskmanager.controller;
+package taskmanager;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
