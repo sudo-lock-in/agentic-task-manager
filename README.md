@@ -1,8 +1,36 @@
 # Task Manager API with AI Suggestions
 
-A Spring Boot REST API for personal task management with AI-powered task suggestions using Ollama Mistral. Built with Java 17, Spring Boot 3.3.0, H2 database, and a responsive web UI.
+A Spring Boot REST API for personal task management with AI-powered task suggestions using Ollama Mistral. Built with Java 17, Spring Boot, H2 database, and a responsive web UI.
 
 ![Dark theme task manager application on startup](images/taskmanager.png)
+
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+  - [1. Install Ollama and Mistral](#1-install-ollama-and-download-mistral-model-for-ai-suggestions)
+  - [2. Run the Application](#2-run-the-application)
+- [API Endpoints](#api-endpoints)
+  - [Task Management](#task-management)
+  - [AI-Powered Task Suggestions](#ai-powered-task-suggestions)
+- [Configuration](#configuration)
+- [Development](#development)
+- [Troubleshooting](#troubleshooting)
+
+## Tech Stack
+
+- **Java 17** - Language
+- **Spring Boot 3.3.0** - Framework
+- **Spring Data JPA** - Database access
+- **H2 Database** - In-memory database
+- **Gradle 7+** - Build tool
+- **JUnit 5** - Testing framework
+- **Mockito** - Mocking library
+- **Lombok** - Boilerplate reduction
+- **Ollama Mistral** - AI integration
+- **Vanilla JavaScript** - Frontend
 
 ## Features
 
@@ -50,7 +78,6 @@ The API will start on http://localhost:8080 once you see the console message, "`
 
 
 **Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint.
-
 
 ## API Endpoints
 
@@ -140,29 +167,7 @@ Content-Type: application/json
   "status": "TODO"
 }
 ```
-## Task Model
 
-### Task Fields
-- **id** (Long): Unique identifier (auto-generated)
-- **title** (String): Task name (required, max 100 chars)
-- **description** (String): Detailed description (optional)
-- **dueDate** (LocalDate): Due date in YYYY-MM-DD format (optional)
-- **priority** (Enum): `LOW`, `MEDIUM`, `HIGH` (default: MEDIUM)
-- **status** (Enum): `TODO`, `IN_PROGRESS`, `DONE` (default: TODO)
-- **createdAt** (LocalDate): Creation date (auto-set)
-
-## Testing
-
-Run the comprehensive test suite (26 tests):
-
-```bash
-./gradlew test
-```
-
-Test coverage includes:
-- **TaskServiceTest** (10 tests): Service layer business logic
-- **TaskControllerIntegrationTest** (7 tests): REST endpoint integration
-- **OllamaServiceTest** (9 tests): AI service with mocked responses
 
 ## Configuration
 
@@ -201,62 +206,26 @@ ollama.base-url=http://192.168.1.100:11434
 ollama.model=llama2
 ```
 
-## Project Structure
-
-```
-task-manager-api/
-├── src/main/java/com/taskmanager/
-│   ├── TaskManagerApplication.java       # Main entry point
-│   ├── config/
-│   │   └── OllamaConfig.java            # Ollama configuration
-│   ├── controller/
-│   │   ├── TaskController.java          # REST endpoints
-│   │   ├── TaskControllerAdvice.java    # Exception handling
-│   │   ├── TaskRequest.java             # Task DTO
-│   │   └── SuggestTaskRequest.java      # AI suggestion DTO
-│   ├── model/
-│   │   └── Task.java                    # Task entity with enums
-│   ├── repository/
-│   │   └── TaskRepository.java          # JPA repository
-│   └── service/
-│       ├── TaskService.java             # Business logic
-│       └── OllamaService.java           # AI integration
-├── src/main/resources/
-│   ├── application.properties           # Configuration
-│   └── static/
-│       └── index.html                   # Web UI
-├── src/test/java/com/taskmanager/
-│   ├── controller/
-│   │   └── TaskControllerIntegrationTest.java
-│   └── service/
-│       ├── TaskServiceTest.java
-│       └── OllamaServiceTest.java
-├── build.gradle                         # Gradle configuration
-├── gradlew                              # Gradle wrapper (Unix)
-├── gradlew.bat                          # Gradle wrapper (Windows)
-└── README.md                            # This file
-```
-
 ## Development
 
 ### Build Project
 ```bash
-./gradlew clean build
+sh gradlew clean build
 ```
 
 ### Run Tests
 ```bash
-./gradlew test
+sh gradlew test
 ```
 
 ### Build Docker Image (if needed)
 ```bash
-./gradlew bootBuildImage
+sh gradlew bootBuildImage
 ```
 
 ### Check Dependencies
 ```bash
-./gradlew dependencies
+sh gradlew dependencies
 ```
 
 ## Troubleshooting
@@ -266,7 +235,7 @@ task-manager-api/
 - Check if port 8080 is available: `lsof -i :8080`
 - Start application with verbose logging:
   ```bash
-  ./gradlew bootRun --info
+  sh gradlew bootRun --info
   ```
 
 ### Ollama connection errors
@@ -276,20 +245,7 @@ task-manager-api/
 - If Ollama unavailable, AI suggestions will fall back to default task
 
 ### Tests fail
-- Ensure H2 database driver is included: `./gradlew dependencies | grep h2`
-- Run tests with verbose output: `./gradlew test --info`
-- Clean and rebuild: `./gradlew clean build`
-
-## Technologies
-
-- **Java 17** - Language
-- **Spring Boot 3.3.0** - Framework
-- **Spring Data JPA** - Database access
-- **H2 Database** - In-memory database
-- **Gradle 7+** - Build tool
-- **JUnit 5** - Testing framework
-- **Mockito** - Mocking library
-- **Lombok** - Boilerplate reduction
-- **Ollama Mistral** - AI integration
-- **Vanilla JavaScript** - Frontend
+- Ensure H2 database driver is included: `sh gradlew dependencies | grep h2`
+- Run tests with verbose output: `sh gradlew test --info`
+- Clean and rebuild: `sh gradlew clean build`
 
