@@ -2,6 +2,8 @@
 
 A Spring Boot REST API for personal task management with AI-powered task suggestions using Ollama Mistral. Built with Java 17, Spring Boot 3.3.0, H2 database, and a responsive web UI.
 
+![Dark theme task manager application on startup](images/taskmanager.png)
+
 ## Features
 
 - **CRUD Operations**: Create, read, update, delete tasks
@@ -19,13 +21,15 @@ A Spring Boot REST API for personal task management with AI-powered task suggest
 
 ### Optional
 - Ollama Mistral (for AI suggestions) - [Download Ollama](https://ollama.ai)
+  - You need a minimum 4GB of RAM available for running the Mistral model.
 
 ## Quick Start
 
-### 1. Install Ollama and Download Mistral Model
+### 1. Install Ollama and Download Mistral Model (for AI suggestions)
+
+Download and install Ollama from https://ollama.ai if you have not already.
 
 ```bash
-# Download and install Ollama from https://ollama.ai
 # Then download the Mistral model:
 ollama pull mistral
 
@@ -39,14 +43,14 @@ Ollama will listen on `http://localhost:11434` by default.
 
 ```bash
 # From the task-manager-api directory
-./gradlew bootRun
+sh gradlew bootRun
 ```
 
-The API will start on **http://localhost:8080**
+The API will start on http://localhost:8080 once you see the console message, "`Tomcat started on port 8080 (http) with context path '/'`". Even if it is not at 100% executing.
 
-### 3. Access the Web UI
 
-Open your browser to: **http://localhost:8080**
+**Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint.
+
 
 ## API Endpoints
 
@@ -136,9 +140,6 @@ Content-Type: application/json
   "status": "TODO"
 }
 ```
-
-**Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint.
-
 ## Task Model
 
 ### Task Fields

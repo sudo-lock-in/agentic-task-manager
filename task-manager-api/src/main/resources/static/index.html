@@ -13,56 +13,79 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            background: #0d0d0d;
+            height: 100vh;
+            overflow: hidden;
+            color: #e8e8e8;
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+            background: #141414;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
+            background: #1a1a1a;
+            color: #e8e8e8;
+            padding: 18px 30px;
             text-align: center;
+            border-bottom: 1px solid #2a2a2a;
+            flex-shrink: 0;
         }
 
         header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            margin-bottom: 4px;
         }
 
         header p {
-            opacity: 0.9;
-            font-size: 14px;
+            color: #888;
+            font-size: 13px;
         }
 
         .content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .content > div {
             padding: 30px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #333 transparent;
+        }
+
+        .content > div:first-child {
+            border-right: 1px solid #2a2a2a;
+        }
+
+        .content > div:last-child {
+            display: flex;
+            flex-direction: column;
         }
 
         @media (max-width: 768px) {
             .content {
                 grid-template-columns: 1fr;
             }
+
+            .content > div:first-child {
+                border-right: none;
+                border-bottom: 1px solid #2a2a2a;
+            }
         }
 
         .section-title {
             font-size: 20px;
             font-weight: 600;
-            color: #333;
+            color: #e8e8e8;
             margin-bottom: 20px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #6366f1;
             padding-bottom: 10px;
         }
 
@@ -73,7 +96,7 @@
         label {
             display: block;
             font-weight: 500;
-            color: #555;
+            color: #a0a0a0;
             margin-bottom: 5px;
             font-size: 14px;
         }
@@ -84,11 +107,13 @@
         select {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid #2a2a2a;
+            border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: border-color 0.2s;
+            background: #1e1e1e;
+            color: #e8e8e8;
         }
 
         input[type="text"]:focus,
@@ -96,8 +121,12 @@
         textarea:focus,
         select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(0.7);
         }
 
         textarea {
@@ -105,22 +134,28 @@
             min-height: 80px;
         }
 
+        select option {
+            background: #1e1e1e;
+            color: #e8e8e8;
+        }
+
         button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #6366f1;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
             font-size: 14px;
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            background: #5558e8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         button:active {
@@ -128,48 +163,70 @@
         }
 
         .button-secondary {
-            background: #6c757d;
+            background: #252525;
+            color: #c8c8c8;
+            border: 1px solid #333;
             margin-top: 10px;
         }
 
         .button-secondary:hover {
-            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+            background: #2e2e2e;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .task-list {
-            max-height: 500px;
+            flex: 1;
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #333 transparent;
+            min-height: 0;
+        }
+
+        .task-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .task-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .task-list::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
         }
 
         .task-item {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-left: 3px solid #6366f1;
             padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            transition: box-shadow 0.3s;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
 
         .task-item:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+            border-color: #3a3a3a;
+            border-left-color: #6366f1;
         }
 
         .task-title {
             font-weight: 600;
-            color: #333;
+            color: #e8e8e8;
             font-size: 16px;
             margin-bottom: 5px;
         }
 
         .task-description {
-            color: #666;
+            color: #888;
             font-size: 14px;
             margin-bottom: 8px;
         }
 
         .task-meta {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             font-size: 12px;
             margin-bottom: 10px;
@@ -178,38 +235,47 @@
         .badge {
             display: inline-block;
             padding: 3px 8px;
-            border-radius: 3px;
+            border-radius: 4px;
             font-weight: 500;
+            font-size: 11px;
+            letter-spacing: 0.3px;
+            border: 1px solid;
         }
 
         .priority-high {
-            background: #ffe6e6;
-            color: #d32f2f;
+            background: rgba(255, 69, 58, 0.12);
+            color: #ff6b6b;
+            border-color: rgba(255, 69, 58, 0.25);
         }
 
         .priority-medium {
-            background: #fff3e0;
-            color: #f57c00;
+            background: rgba(255, 159, 10, 0.12);
+            color: #ffa940;
+            border-color: rgba(255, 159, 10, 0.25);
         }
 
         .priority-low {
-            background: #e8f5e9;
-            color: #388e3c;
+            background: rgba(48, 209, 88, 0.1);
+            color: #52c41a;
+            border-color: rgba(48, 209, 88, 0.22);
         }
 
         .status-todo {
-            background: #e3f2fd;
-            color: #1976d2;
+            background: rgba(10, 132, 255, 0.1);
+            color: #4da6ff;
+            border-color: rgba(10, 132, 255, 0.22);
         }
 
         .status-in_progress {
-            background: #f3e5f5;
-            color: #7b1fa2;
+            background: rgba(191, 90, 242, 0.1);
+            color: #c77dff;
+            border-color: rgba(191, 90, 242, 0.22);
         }
 
         .status-done {
-            background: #e8f5e9;
-            color: #388e3c;
+            background: rgba(48, 209, 88, 0.1);
+            color: #52c41a;
+            border-color: rgba(48, 209, 88, 0.22);
         }
 
         .task-actions {
@@ -222,57 +288,63 @@
             flex: 1;
             padding: 6px;
             font-size: 12px;
-            background: #dc3545;
+            background: rgba(220, 53, 69, 0.12);
+            color: #ff6b6b;
+            border: 1px solid rgba(220, 53, 69, 0.25);
         }
 
         .task-actions button:hover {
-            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+            background: rgba(220, 53, 69, 0.22);
+            box-shadow: none;
+            transform: none;
         }
 
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #999;
+            color: #555;
         }
 
         .empty-state svg {
             width: 60px;
             height: 60px;
             margin-bottom: 15px;
-            opacity: 0.5;
+            opacity: 0.3;
         }
 
         .alert {
             padding: 12px;
-            border-radius: 5px;
+            border-radius: 6px;
             margin-bottom: 15px;
             font-size: 14px;
+            border: 1px solid;
         }
 
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(48, 209, 88, 0.1);
+            color: #52c41a;
+            border-color: rgba(48, 209, 88, 0.2);
         }
 
         .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(255, 69, 58, 0.1);
+            color: #ff6b6b;
+            border-color: rgba(255, 69, 58, 0.2);
         }
 
         .alert-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            background: rgba(10, 132, 255, 0.1);
+            color: #4da6ff;
+            border-color: rgba(10, 132, 255, 0.2);
         }
 
         .section-notice {
             margin-top: 10px;
             padding: 10px 12px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 13px;
             line-height: 1.4;
+            border: 1px solid;
         }
 
         .section-notice:empty {
@@ -280,25 +352,25 @@
         }
 
         .section-notice-info {
-            background: #e8f0fe;
-            color: #1a3c5e;
-            border: 1px solid #c6dafc;
+            background: rgba(10, 132, 255, 0.08);
+            color: #4da6ff;
+            border-color: rgba(10, 132, 255, 0.18);
         }
 
         .section-notice-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(48, 209, 88, 0.08);
+            color: #52c41a;
+            border-color: rgba(48, 209, 88, 0.18);
         }
 
         .section-notice-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(255, 69, 58, 0.08);
+            color: #ff6b6b;
+            border-color: rgba(255, 69, 58, 0.18);
         }
 
         .loading {
-            opacity: 0.6;
+            opacity: 0.5;
             pointer-events: none;
         }
 
@@ -306,8 +378,8 @@
             display: inline-block;
             width: 14px;
             height: 14px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #667eea;
+            border: 2px solid #333;
+            border-top: 2px solid #6366f1;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -334,7 +406,7 @@
 
                 <!-- Form for manual task creation -->
                 <div>
-                    <h3 style="font-size: 14px; color: #666; margin-bottom: 15px; font-weight: 600;">Manual Entry</h3>
+                    <h3 style="font-size: 14px; color: #888; margin-bottom: 15px; font-weight: 600;">Manual Entry</h3>
                     <div class="form-group">
                         <label for="title">Task Title *</label>
                         <input type="text" id="title" placeholder="Enter task title" required>
@@ -375,22 +447,22 @@
                 </div>
 
                 <!-- Divider -->
-                <div style="margin: 30px 0; text-align: center; color: #ddd;">
+                <div style="margin: 30px 0; text-align: center;">
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="flex: 1; height: 1px; background: #ddd;"></div>
-                        <span style="color: #999; font-size: 12px;">OR</span>
-                        <div style="flex: 1; height: 1px; background: #ddd;"></div>
+                        <div style="flex: 1; height: 1px; background: #2a2a2a;"></div>
+                        <span style="color: #555; font-size: 12px;">OR</span>
+                        <div style="flex: 1; height: 1px; background: #2a2a2a;"></div>
                     </div>
                 </div>
 
                 <!-- AI Suggestion -->
                 <div>
-                    <h3 style="font-size: 14px; color: #666; margin-bottom: 15px; font-weight: 600;">🤖 AI Suggestion</h3>
+                    <h3 style="font-size: 14px; color: #888; margin-bottom: 15px; font-weight: 600;">🤖 AI Suggestion</h3>
                     <div class="form-group">
                         <label for="aiDescription">Describe what you need to do</label>
                         <textarea id="aiDescription" placeholder="e.g., 'remind me to submit the quarterly report before Friday'"></textarea>
                     </div>
-                    <button onclick="suggestTask()" class="button-secondary" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Get AI Suggestion</button>
+                    <button onclick="suggestTask()" class="button-secondary">Get AI Suggestion</button>
                     <div id="aiNotice" class="section-notice section-notice-info" aria-live="polite">
                         Local Ollama Mistral runs at http://localhost:11434. If it is not running, AI suggestions fall back to a basic task.
                     </div>
@@ -540,7 +612,7 @@
                     <div class="task-meta">
                         <span class="badge priority-${task.priority.toLowerCase()}">${task.priority}</span>
                         <span class="badge status-${task.status.toLowerCase()}">${formatStatus(task.status)}</span>
-                        ${task.dueDate ? `<span style="color: #999;">📅 ${task.dueDate}</span>` : ''}
+                        ${task.dueDate ? `<span style="color: #666;">📅 ${task.dueDate}</span>` : ''}
                     </div>
                     <div class="task-actions">
                         <button onclick="deleteTask(${task.id})">Delete</button>
