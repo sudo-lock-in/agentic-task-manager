@@ -45,17 +45,18 @@ public class OllamaService {
     }
 
     private String buildTaskSuggestionPrompt(String userDescription) {
+        String today = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
         return String.format("""
-                You are a task management AI. Parse this user description and extract task details.
+                You are a task management AI. Today's date is %s. Parse this user description and extract task details.
                 Return ONLY a JSON object (no markdown, no code blocks) with these fields:
                 - title (string, max 100 chars, required)
                 - description (string, optional)
                 - priority (LOW, MEDIUM, or HIGH, default MEDIUM)
-                - dueDate (ISO date YYYY-MM-DD, optional)
-                
+                - dueDate (ISO date YYYY-MM-DD, optional — infer from relative terms like "tomorrow" or "next week" using today's date)
+
                 User description: "%s"
-                
-                Return only valid JSON:""", userDescription);
+
+                Return only valid JSON:""", today, userDescription);
     }
 
     private String callOllama(String prompt) {

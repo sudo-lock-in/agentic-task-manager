@@ -19,6 +19,8 @@ A Spring Boot REST API for personal task management with AI-powered task suggest
 - [Development](#development)
 - [Troubleshooting](#troubleshooting)
 
+<br>
+
 ## Tech Stack
 
 - **Java 17** - Language
@@ -77,7 +79,7 @@ sh gradlew bootRun
 The API will start on http://localhost:8080 once you see the console message, "`Tomcat started on port 8080 (http) with context path '/'`". Even if it is not at 100% executing.
 
 
-**Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint.
+**Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint by clicking Create Task on the UI. Also, if you do not have Ollama properly running it will fall back to suggesting a generic task.
 
 ## API Endpoints
 
