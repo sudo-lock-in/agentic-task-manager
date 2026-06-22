@@ -44,6 +44,15 @@ public class OllamaService {
         }
     }
 
+    public boolean isOllamaRunning() {
+        try {
+            restTemplate.getForObject(ollamaConfig.getBaseUrl() + "/api/tags", Map.class);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private String buildTaskSuggestionPrompt(String userDescription) {
         String today = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
         return String.format("""

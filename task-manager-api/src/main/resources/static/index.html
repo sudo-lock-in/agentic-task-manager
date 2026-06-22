@@ -374,6 +374,45 @@
             pointer-events: none;
         }
 
+        .btn-ai-loading {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #3a3a4a;
+            border-color: #444;
+            color: #aaa;
+        }
+
+        .btn-ai-complete {
+            background: rgba(48, 209, 88, 0.15);
+            border-color: rgba(48, 209, 88, 0.35);
+            color: #52c41a;
+            cursor: default;
+        }
+
+        .btn-ai-complete:hover {
+            background: rgba(48, 209, 88, 0.15);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-ai-unavailable {
+            background: rgba(255, 69, 58, 0.1);
+            border: 1px solid rgba(255, 69, 58, 0.3);
+            color: #ff6b6b;
+            cursor: pointer;
+            display: block;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px;
+        }
+
+        .btn-ai-unavailable:hover {
+            background: rgba(255, 69, 58, 0.18);
+            transform: none;
+            box-shadow: none;
+        }
+
         .spinner {
             display: inline-block;
             width: 14px;
@@ -462,10 +501,14 @@
                         <label for="aiDescription">Describe what you need to do</label>
                         <textarea id="aiDescription" placeholder="e.g., 'remind me to submit the quarterly report before Friday'"></textarea>
                     </div>
-                    <button onclick="suggestTask()" class="button-secondary">Get AI Suggestion</button>
-                    <div id="aiNotice" class="section-notice section-notice-info" aria-live="polite">
-                        Local Ollama Mistral runs at http://localhost:11434. If it is not running, AI suggestions fall back to a basic task.
-                    </div>
+                    <button id="aiSuggestBtn" onclick="suggestTask()" class="button-secondary">🤖 Get AI Suggestion</button>
+                    <a id="aiUnavailableLink"
+                       href="https://github.com/sudo-lock-in/agentic-task-manager#1-install-ollama-and-download-mistral-model-for-ai-suggestions"
+                       target="_blank"
+                       class="btn-ai-unavailable"
+                       style="display:none; text-align:center; text-decoration:none;">
+                        ⚠ Ollama Unavailable — See Guide ↗
+                    </a>
                 </div>
             </div>
 
@@ -488,7 +531,45 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             refreshTasks();
+            checkOllamaHealth();
         });
+
+        function setAiButtonState(state) {
+            const btn = document.getElementById('aiSuggestBtn');
+            const link = document.getElementById('aiUnavailableLink');
+
+            btn.className = 'button-secondary';
+            btn.disabled = false;
+            btn.style.display = '';
+            link.style.display = 'none';
+
+            if (state === 'loading') {
+                btn.classList.add('btn-ai-loading');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner"></span> Generating…';
+            } else if (state === 'complete') {
+                btn.classList.add('btn-ai-complete');
+                btn.disabled = true;
+                btn.textContent = '✓ Suggestion Loaded!';
+                setTimeout(() => setAiButtonState('default'), 2000);
+            } else if (state === 'unavailable') {
+                btn.style.display = 'none';
+                link.style.display = 'block';
+            } else {
+                btn.textContent = '🤖 Get AI Suggestion';
+            }
+        }
+
+        async function checkOllamaHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/ollama/health`);
+                if (!response.ok) return;
+                const { running } = await response.json();
+                if (!running) setAiButtonState('unavailable');
+            } catch (e) {
+                // silent — don't interrupt the rest of the UI
+            }
+        }
 
         function setSectionNotice(elementId, message, type = 'info') {
             const element = document.getElementById(elementId);
@@ -553,12 +634,12 @@
             const description = document.getElementById('aiDescription').value.trim();
 
             if (!description) {
-                setSectionNotice('aiNotice', 'Please describe what you need to do before requesting a suggestion.', 'error');
+                setSectionNotice('manualNotice', 'Please describe what you need to do before requesting a suggestion.', 'error');
                 return;
             }
 
             try {
-                setSectionNotice('aiNotice', 'Getting AI suggestion from local Ollama...', 'info');
+                setAiButtonState('loading');
                 const response = await fetch(`${API_BASE}/tasks/suggest`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -568,18 +649,18 @@
                 if (!response.ok) throw new Error('Failed to get suggestion');
 
                 const suggestedTask = await response.json();
-                
-                // Populate form with suggested values
+
                 document.getElementById('title').value = suggestedTask.title || '';
                 document.getElementById('description').value = suggestedTask.description || '';
                 document.getElementById('dueDate').value = suggestedTask.dueDate || '';
                 document.getElementById('priority').value = suggestedTask.priority || 'MEDIUM';
                 document.getElementById('status').value = suggestedTask.status || 'TODO';
-                
+
                 document.getElementById('aiDescription').value = '';
-                setSectionNotice('aiNotice', 'AI suggestion loaded. Review it and create the task when ready.', 'success');
+                setAiButtonState('complete');
             } catch (error) {
-                setSectionNotice('aiNotice', 'Error getting suggestion: ' + error.message, 'error');
+                setAiButtonState('default');
+                setSectionNotice('manualNotice', 'Error getting suggestion: ' + error.message, 'error');
             }
         }
 

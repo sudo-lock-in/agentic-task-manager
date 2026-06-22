@@ -60,11 +60,11 @@ A Spring Boot REST API for personal task management with AI-powered task suggest
 Download and install Ollama from https://ollama.ai if you have not already.
 
 ```bash
+# Start Ollama 
+ollama serve
+
 # Then download the Mistral model:
 ollama pull mistral
-
-# Start Ollama (if not running as a service)
-ollama serve
 ```
 
 Ollama will listen on `http://localhost:11434` by default.
@@ -79,7 +79,7 @@ sh gradlew bootRun
 The API will start on http://localhost:8080 once you see the console message, "`Tomcat started on port 8080 (http) with context path '/'`". Even if it is not at 100% executing.
 
 
-**Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint by clicking Create Task on the UI. Also, if you do not have Ollama properly running it will fall back to suggesting a generic task.
+**Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint by clicking Create Task on the UI.
 
 ## API Endpoints
 
@@ -244,7 +244,7 @@ sh gradlew dependencies
 - Verify Ollama is running: `ollama serve` (or check if running as service)
 - Verify Mistral model is downloaded: `ollama list`
 - Test Ollama directly: `curl http://localhost:11434/api/tags`
-- If Ollama unavailable, AI suggestions will fall back to default task
+- If Ollama unavailable, AI suggestions will not be done
 
 ### Tests fail
 - Ensure H2 database driver is included: `sh gradlew dependencies | grep h2`
