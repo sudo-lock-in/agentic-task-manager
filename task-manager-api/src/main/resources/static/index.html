@@ -4,48 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
-     <!-- Internal CSS -->  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0d0d0d;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
             height: 100vh;
             overflow: hidden;
-            color: #e8e8e8;
+            color: #e2e2e2;
         }
 
-        .container {
-            width: 100%;
-            height: 100vh;
-            background: #141414;
-            display: flex;
-            flex-direction: column;
-        }
+        .container { width: 100%; height: 100vh; background: #111; display: flex; flex-direction: column; }
 
         header {
-            background: #1a1a1a;
-            color: #e8e8e8;
-            padding: 18px 30px;
+            background: #161616;
+            padding: 16px 32px;
             text-align: center;
-            border-bottom: 1px solid #2a2a2a;
+            border-bottom: 1px solid #222;
             flex-shrink: 0;
         }
 
         header h1 {
-            font-size: 24px;
-            margin-bottom: 4px;
+            font-size: 30px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(90deg, #e0e0e0 0%, #818cf8 30%, #c084fc 55%, #e0e0e0 80%, #818cf8 100%);
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-flow 5s linear infinite;
         }
 
-        header p {
-            color: #888;
-            font-size: 13px;
+        @keyframes gradient-flow {
+            0%   { background-position: 0% center; }
+            100% { background-position: 250% center; }
         }
+
+        header p { color: #555; font-size: 12px; margin-top: 2px; }
 
         .content {
             display: grid;
@@ -55,66 +55,48 @@
         }
 
         .content > div {
-            padding: 30px;
+            padding: 28px 32px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: #333 transparent;
+            scrollbar-color: #2a2a2a transparent;
         }
 
-        .content > div:first-child {
-            border-right: 1px solid #2a2a2a;
-        }
-
-        .content > div:last-child {
-            display: flex;
-            flex-direction: column;
-        }
+        .content > div:first-child { border-right: 1px solid #1e1e1e; }
+        .content > div:last-child { display: flex; flex-direction: column; }
 
         @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-
-            .content > div:first-child {
-                border-right: none;
-                border-bottom: 1px solid #2a2a2a;
-            }
+            .content { grid-template-columns: 1fr; }
+            .content > div:first-child { border-right: none; border-bottom: 1px solid #1e1e1e; }
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 11px;
             font-weight: 600;
-            color: #e8e8e8;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #6366f1;
-            padding-bottom: 10px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .subsection-label { font-size: 12px; color: #505050; margin-bottom: 14px; font-weight: 500; }
 
-        label {
-            display: block;
-            font-weight: 500;
-            color: #a0a0a0;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
+        .form-group { margin-bottom: 13px; }
+
+        label { display: block; font-weight: 500; color: #777; margin-bottom: 5px; font-size: 12px; }
 
         input[type="text"],
         input[type="date"],
         textarea,
         select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #2a2a2a;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 8px 10px;
+            border: 1px solid #222;
+            border-radius: 5px;
+            font-size: 13px;
             font-family: inherit;
-            transition: border-color 0.2s;
-            background: #1e1e1e;
-            color: #e8e8e8;
+            transition: border-color 0.15s, box-shadow 0.15s;
+            background: #181818;
+            color: #e2e2e2;
         }
 
         input[type="text"]:focus,
@@ -122,630 +104,665 @@
         textarea:focus,
         select:focus {
             outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            border-color: #5b5ef4;
+            box-shadow: 0 0 0 3px rgba(91, 94, 244, 0.1);
         }
 
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.7);
-        }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.4); }
+        textarea { resize: vertical; min-height: 68px; line-height: 1.5; }
+        select option { background: #181818; color: #e2e2e2; }
 
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        select option {
-            background: #1e1e1e;
-            color: #e8e8e8;
-        }
+        /* hint text shown on the default option */
+        select.has-default option:first-child { color: #666; }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: #6366f1;
-            color: white;
+            padding: 9px 14px;
+            background: #5b5ef4;
+            color: #fff;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            font-size: 14px;
+            transition: background 0.15s, transform 0.15s, box-shadow 0.15s, color 0.15s, opacity 0.15s;
+            font-size: 13px;
         }
 
-        button:hover {
-            background: #5558e8;
+        button:hover:not(:disabled) {
+            background: #4a4de0;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 14px rgba(91, 94, 244, 0.25);
         }
 
-        button:active {
-            transform: translateY(0);
+        button:active:not(:disabled) { transform: translateY(0); }
+        button:disabled { cursor: not-allowed; }
+
+        .btn-secondary {
+            background: #1c1c1c;
+            color: #aaa;
+            border: 1px solid #252525;
+            margin-top: 8px;
         }
 
-        .button-secondary {
-            background: #252525;
-            color: #c8c8c8;
-            border: 1px solid #333;
-            margin-top: 10px;
+        .btn-secondary:hover:not(:disabled) {
+            background: #222;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
 
-        .button-secondary:hover {
-            background: #2e2e2e;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        .btn-loading { opacity: 0.6; background: #25253a; border-color: #35354a; color: #777; }
+        .btn-loading.btn-secondary { background: #1a1a1a; border-color: #2a2a2a; color: #555; }
+
+        .btn-success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #4ade80;
         }
 
-        .task-list {
-            flex: 1;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #333 transparent;
-            min-height: 0;
+        .btn-success:hover:not(:disabled) { background: rgba(34, 197, 94, 0.1); transform: none; box-shadow: none; }
+
+        .btn-error {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.22);
+            color: #f87171;
         }
 
-        .task-list::-webkit-scrollbar {
-            width: 6px;
+        .btn-error:hover:not(:disabled) { background: rgba(239, 68, 68, 0.08); transform: none; box-shadow: none; }
+
+        .btn-unavailable {
+            display: block;
+            background: rgba(239, 68, 68, 0.07);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 9px 14px;
+            text-align: center;
+            text-decoration: none;
+            font-family: inherit;
+            transition: background 0.15s;
+            margin-top: 8px;
         }
 
-        .task-list::-webkit-scrollbar-track {
-            background: transparent;
+        .btn-unavailable:hover { background: rgba(239, 68, 68, 0.12); }
+
+        .divider {
+            margin: 22px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .task-list::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
+        .divider::before,
+        .divider::after { content: ''; flex: 1; height: 1px; background: #1e1e1e; }
+        .divider span { color: #3a3a3a; font-size: 11px; font-weight: 500; letter-spacing: 0.4px; }
+
+        /* ── Task list ───────────────────────────── */
+        .task-list { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #2a2a2a transparent; min-height: 0; }
+        .task-list::-webkit-scrollbar { width: 4px; }
+        .task-list::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
 
         .task-item {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-left: 3px solid #6366f1;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            transition: box-shadow 0.2s, border-color 0.2s;
-        }
-
-        .task-item:hover {
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-            border-color: #3a3a3a;
-            border-left-color: #6366f1;
-        }
-
-        .task-title {
-            font-weight: 600;
-            color: #e8e8e8;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .task-description {
-            color: #888;
-            font-size: 14px;
+            background: #181818;
+            border: 1px solid #222;
+            border-left: 2px solid #5b5ef4;
+            padding: 13px 14px;
             margin-bottom: 8px;
+            border-radius: 6px;
+            transition: border-color 0.15s, box-shadow 0.15s, opacity 0.15s;
+            position: relative;
         }
 
-        .task-meta {
+        .task-item:hover { border-color: #2c2c2c; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        /* Priority-coded left border */
+        .task-item.p-high   { border-left-color: #ef4444; }
+        .task-item.p-medium { border-left-color: #f59e0b; }
+        .task-item.p-low    { border-left-color: #22c55e; }
+
+        /* Done state */
+        .task-item.is-done { opacity: 0.6; }
+        .task-item.is-done .task-title { text-decoration: line-through; color: #555; }
+        .task-item.is-done .task-description { color: #444; }
+
+        .task-header {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            font-size: 12px;
-            margin-bottom: 10px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 6px;
         }
+
+        .task-title { font-weight: 600; color: #eaeaea; font-size: 14px; letter-spacing: -0.1px; flex: 1; }
+        .task-description { color: #5a5a5a; font-size: 12px; margin-bottom: 9px; line-height: 1.45; }
+
+        .task-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
 
         .badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
+            padding: 2px 6px;
+            border-radius: 3px;
             font-weight: 500;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 0.3px;
             border: 1px solid;
         }
 
-        .priority-high {
-            background: rgba(255, 69, 58, 0.12);
-            color: #ff6b6b;
-            border-color: rgba(255, 69, 58, 0.25);
-        }
+        .priority-high   { background: rgba(239,68,68,0.1);  color: #f87171; border-color: rgba(239,68,68,0.2);  }
+        .priority-medium { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.2); }
+        .priority-low    { background: rgba(34,197,94,0.08); color: #4ade80; border-color: rgba(34,197,94,0.18); }
+        .status-todo        { background: rgba(99,102,241,0.1);  color: #818cf8; border-color: rgba(99,102,241,0.2);  }
+        .status-in_progress { background: rgba(168,85,247,0.1);  color: #c084fc; border-color: rgba(168,85,247,0.2);  }
+        .status-done        { background: rgba(34,197,94,0.08);  color: #4ade80; border-color: rgba(34,197,94,0.18); }
 
-        .priority-medium {
-            background: rgba(255, 159, 10, 0.12);
-            color: #ffa940;
-            border-color: rgba(255, 159, 10, 0.25);
-        }
+        .due-date { color: #4a4a4a; font-size: 11px; }
 
-        .priority-low {
-            background: rgba(48, 209, 88, 0.1);
-            color: #52c41a;
-            border-color: rgba(48, 209, 88, 0.22);
-        }
-
-        .status-todo {
-            background: rgba(10, 132, 255, 0.1);
-            color: #4da6ff;
-            border-color: rgba(10, 132, 255, 0.22);
-        }
-
-        .status-in_progress {
-            background: rgba(191, 90, 242, 0.1);
-            color: #c77dff;
-            border-color: rgba(191, 90, 242, 0.22);
-        }
-
-        .status-done {
-            background: rgba(48, 209, 88, 0.1);
-            color: #52c41a;
-            border-color: rgba(48, 209, 88, 0.22);
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .task-actions button {
-            flex: 1;
-            padding: 6px;
-            font-size: 12px;
-            background: rgba(220, 53, 69, 0.12);
-            color: #ff6b6b;
-            border: 1px solid rgba(220, 53, 69, 0.25);
-        }
-
-        .task-actions button:hover {
-            background: rgba(220, 53, 69, 0.22);
-            box-shadow: none;
-            transform: none;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #555;
-        }
-
-        .empty-state svg {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 15px;
-            opacity: 0.3;
-        }
-
-        .alert {
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            border: 1px solid;
-        }
-
-        .alert-success {
-            background: rgba(48, 209, 88, 0.1);
-            color: #52c41a;
-            border-color: rgba(48, 209, 88, 0.2);
-        }
-
-        .alert-error {
-            background: rgba(255, 69, 58, 0.1);
-            color: #ff6b6b;
-            border-color: rgba(255, 69, 58, 0.2);
-        }
-
-        .alert-info {
-            background: rgba(10, 132, 255, 0.1);
-            color: #4da6ff;
-            border-color: rgba(10, 132, 255, 0.2);
-        }
-
-        .section-notice {
-            margin-top: 10px;
-            padding: 10px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            line-height: 1.4;
-            border: 1px solid;
-        }
-
-        .section-notice:empty {
-            display: none;
-        }
-
-        .section-notice-info {
-            background: rgba(10, 132, 255, 0.08);
-            color: #4da6ff;
-            border-color: rgba(10, 132, 255, 0.18);
-        }
-
-        .section-notice-success {
-            background: rgba(48, 209, 88, 0.08);
-            color: #52c41a;
-            border-color: rgba(48, 209, 88, 0.18);
-        }
-
-        .section-notice-error {
-            background: rgba(255, 69, 58, 0.08);
-            color: #ff6b6b;
-            border-color: rgba(255, 69, 58, 0.18);
-        }
-
-        .loading {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .btn-ai-loading {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: #3a3a4a;
-            border-color: #444;
-            color: #aaa;
-        }
-
-        .btn-ai-complete {
-            background: rgba(48, 209, 88, 0.15);
-            border-color: rgba(48, 209, 88, 0.35);
-            color: #52c41a;
-            cursor: default;
-        }
-
-        .btn-ai-complete:hover {
-            background: rgba(48, 209, 88, 0.15);
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-ai-unavailable {
-            background: rgba(255, 69, 58, 0.1);
-            border: 1px solid rgba(255, 69, 58, 0.3);
-            color: #ff6b6b;
+        /* Icon action buttons (complete circle, in-progress play) */
+        .btn-icon {
+            width: auto;
+            flex-shrink: 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+            margin: 0;
             cursor: pointer;
-            display: block;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.15s, opacity 0.15s;
+            line-height: 1;
         }
 
-        .btn-ai-unavailable:hover {
-            background: rgba(255, 69, 58, 0.18);
+        .btn-icon:hover:not(:disabled) { transform: none; box-shadow: none; }
+
+        /* Complete circle */
+        .btn-circle-complete { color: #333; }
+        .btn-circle-complete:hover:not(:disabled) { color: #4ade80; opacity: 0.9; }
+        .task-item.is-done .btn-circle-complete { color: #4ade80; }
+
+        /* In-progress play */
+        .btn-in-progress { color: #333; }
+        .btn-in-progress:hover:not(:disabled) { color: #c084fc; }
+        .task-item.is-in-progress .btn-in-progress { color: #c084fc; }
+        .task-item.is-done .btn-in-progress { display: none; }
+
+        /* Header right cluster */
+        .task-header-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+
+        /* 3-dot menu */
+        .task-menu-wrapper { position: relative; flex-shrink: 0; }
+
+        .task-menu-btn {
+            width: auto;
+            padding: 2px 6px;
+            background: transparent;
+            color: #3a3a3a;
+            border: none;
+            font-size: 15px;
+            line-height: 1;
+            border-radius: 4px;
+            margin-top: 0;
+            letter-spacing: 1px;
+        }
+
+        .task-menu-btn:hover:not(:disabled) {
+            background: #242424;
+            color: #888;
             transform: none;
             box-shadow: none;
         }
+
+        .task-menu-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 4px);
+            background: #1e1e1e;
+            border: 1px solid #2c2c2c;
+            border-radius: 6px;
+            overflow: hidden;
+            z-index: 200;
+            min-width: 110px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+        }
+
+        .task-menu-dropdown.open { display: block; }
+
+        .task-menu-dropdown button {
+            display: block;
+            width: 100%;
+            padding: 8px 13px;
+            text-align: left;
+            background: transparent;
+            color: #aaa;
+            border: none;
+            border-radius: 0;
+            font-size: 12px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .task-menu-dropdown button:hover:not(:disabled) {
+            background: #272727;
+            color: #e2e2e2;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .task-menu-dropdown .menu-delete { color: #f87171; }
+        .task-menu-dropdown .menu-delete:hover:not(:disabled) { color: #f87171; background: rgba(239,68,68,0.08); }
+
+        /* Inline edit form inside task card */
+        .task-edit-form { display: flex; flex-direction: column; gap: 8px; }
+        .task-edit-form input,
+        .task-edit-form textarea,
+        .task-edit-form select { padding: 7px 9px; font-size: 12px; }
+        .task-edit-form textarea { min-height: 56px; }
+        .task-edit-row { display: flex; gap: 8px; }
+        .task-edit-row > * { flex: 1; }
+        .task-edit-actions { display: flex; gap: 8px; margin-top: 2px; }
+        .task-edit-actions button { margin: 0; padding: 7px 12px; font-size: 12px; }
+
+        /* ── Misc ───────────────────────────────── */
+        .empty-state { text-align: center; padding: 48px 20px; color: #3a3a3a; font-size: 13px; }
 
         .spinner {
             display: inline-block;
-            width: 14px;
-            height: 14px;
+            width: 11px; height: 11px;
             border: 2px solid #333;
-            border-top: 2px solid #6366f1;
+            border-top-color: #5b5ef4;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.75s linear infinite;
+            vertical-align: middle;
+            margin-right: 5px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .btn-secondary .spinner { border-top-color: #666; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📝 Task Manager</h1>
-            <p>Manage your tasks efficiently with AI-powered suggestions</p>
-        </header>
+<div class="container">
+    <header>
+        <h1>Overdo</h1>
+        <p>AI-assisted task management</p>
+    </header>
 
-        <div class="content">
-            <!-- Left Column: Create Task -->
+    <div class="content">
+        <!-- Left Column -->
+        <div>
+            <p class="section-title">Create Task</p>
+
             <div>
-                <h2 class="section-title">➕ Create Task</h2>
-                <!-- Form for manual task creation -->
-                <div id="alertContainer"></div>
-
-                <!-- Form for manual task creation -->
-                <div>
-                    <h3 style="font-size: 14px; color: #888; margin-bottom: 15px; font-weight: 600;">Manual Entry</h3>
-                    <div class="form-group">
-                        <label for="title">Task Title *</label>
-                        <input type="text" id="title" placeholder="Enter task title" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" placeholder="Enter task description"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="dueDate">Due Date</label>
-                        <input type="date" id="dueDate">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="priority">Priority</label>
-                        <select id="priority">
-                            <option value="">-- Select Priority --</option>
-                            <option value="LOW">Low</option>
-                            <option value="MEDIUM">Medium</option>
-                            <option value="HIGH">High</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status">
-                            <option value="">-- Select Status --</option>
-                            <option value="TODO">To Do</option>
-                            <option value="IN_PROGRESS">In Progress</option>
-                            <option value="DONE">Done</option>
-                        </select>
-                    </div>
-
-                    <button onclick="createTask()">Create Task</button>
-                    <div id="manualNotice" class="section-notice" aria-live="polite"></div>
+                <p class="subsection-label">Manual entry</p>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" placeholder="Task title" required>
                 </div>
-
-                <!-- Divider -->
-                <div style="margin: 30px 0; text-align: center;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="flex: 1; height: 1px; background: #2a2a2a;"></div>
-                        <span style="color: #555; font-size: 12px;">OR</span>
-                        <div style="flex: 1; height: 1px; background: #2a2a2a;"></div>
-                    </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" placeholder="Optional description"></textarea>
                 </div>
-
-                <!-- AI Suggestion -->
-                <div>
-                    <h3 style="font-size: 14px; color: #888; margin-bottom: 15px; font-weight: 600;">🤖 AI Suggestion</h3>
-                    <div class="form-group">
-                        <label for="aiDescription">Describe what you need to do</label>
-                        <textarea id="aiDescription" placeholder="e.g., 'remind me to submit the quarterly report before Friday'"></textarea>
-                    </div>
-                    <button id="aiSuggestBtn" onclick="suggestTask()" class="button-secondary">🤖 Get AI Suggestion</button>
-                    <a id="aiUnavailableLink"
-                       href="https://github.com/sudo-lock-in/agentic-task-manager#1-install-ollama-and-download-mistral-model-for-ai-suggestions"
-                       target="_blank"
-                       class="btn-ai-unavailable"
-                       style="display:none; text-align:center; text-decoration:none;">
-                        ⚠ Ollama Unavailable — See Guide ↗
-                    </a>
+                <div class="form-group">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" id="dueDate">
                 </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority">
+                        <option value="MEDIUM" selected>Medium (default)</option>
+                        <option value="LOW">Low</option>
+                        <option value="HIGH">High</option>
+                    </select>
+                </div>
+                <button id="createTaskBtn" onclick="createTask()">Create Task</button>
             </div>
 
-            <!-- Right Column: Task List -->
+            <div class="divider"><span>OR</span></div>
+
             <div>
-                <h2 class="section-title">📋 Your Tasks</h2>
-                <div class="task-list" id="taskList">
-                    <div class="empty-state">
-                        <p>No tasks yet. Create one to get started!</p>
-                    </div>
+                <p class="subsection-label">Generate with AI</p>
+                <div class="form-group">
+                    <label for="aiDescription">Describe what you need to do</label>
+                    <textarea id="aiDescription" placeholder="e.g. submit the quarterly report before Friday"></textarea>
                 </div>
-                <button onclick="refreshTasks()" style="margin-top: 15px;">🔄 Refresh Tasks</button>
+                <button id="aiSuggestBtn" onclick="suggestTask()" class="btn-secondary">Generate with AI</button>
+                <a id="aiUnavailableLink"
+                   href="https://github.com/sudo-lock-in/agentic-task-manager#1-install-ollama-and-download-mistral-model-for-ai-suggestions"
+                   target="_blank"
+                   class="btn-unavailable"
+                   style="display:none;">
+                    Ollama unavailable — See setup guide
+                </a>
             </div>
         </div>
+
+        <!-- Right Column -->
+        <div>
+            <p class="section-title">Your Tasks</p>
+            <div class="task-list" id="taskList">
+                <div class="empty-state">No tasks yet. Create one to get started.</div>
+            </div>
+            <button onclick="refreshTasks()" class="btn-secondary" style="margin-top: 14px;">Refresh</button>
+        </div>
     </div>
+</div>
 
-     <!-- Internal JS --> 
-    <script>
-        const API_BASE = window.location.origin === 'null' ? 'http://localhost:8080' : window.location.origin;
+<script>
+    const API_BASE = window.location.origin === 'null' ? 'http://localhost:8080' : window.location.origin;
+    let currentTasks = [];
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            refreshTasks();
-            checkOllamaHealth();
+    document.addEventListener('DOMContentLoaded', () => {
+        refreshTasks();
+        checkOllamaHealth();
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.task-menu-dropdown.open')
+                .forEach(m => m.classList.remove('open'));
         });
+    });
 
-        function setAiButtonState(state) {
-            const btn = document.getElementById('aiSuggestBtn');
-            const link = document.getElementById('aiUnavailableLink');
+    // ── Button state helpers ──────────────────────────────────────────────
 
-            btn.className = 'button-secondary';
-            btn.disabled = false;
-            btn.style.display = '';
-            link.style.display = 'none';
+    function setButtonState(id, state, opts = {}) {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        if (!('baseClass' in btn.dataset)) btn.dataset.baseClass = btn.className;
+        btn.className = btn.dataset.baseClass;
+        btn.disabled = false;
 
-            if (state === 'loading') {
-                btn.classList.add('btn-ai-loading');
-                btn.disabled = true;
-                btn.innerHTML = '<span class="spinner"></span> Generating…';
-            } else if (state === 'complete') {
-                btn.classList.add('btn-ai-complete');
-                btn.disabled = true;
-                btn.textContent = '✓ Suggestion Loaded!';
-                setTimeout(() => setAiButtonState('default'), 2000);
-            } else if (state === 'unavailable') {
-                btn.style.display = 'none';
-                link.style.display = 'block';
-            } else {
-                btn.textContent = '🤖 Get AI Suggestion';
-            }
+        if (state === 'loading') {
+            btn.classList.add('btn-loading');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner"></span>${opts.label || 'Loading…'}`;
+        } else if (state === 'success') {
+            btn.classList.add('btn-success');
+            btn.disabled = true;
+            btn.textContent = opts.label || 'Done';
+            setTimeout(() => setButtonState(id, 'default', opts), opts.duration || 2000);
+        } else if (state === 'error') {
+            btn.classList.add('btn-error');
+            btn.disabled = true;
+            btn.textContent = opts.label || 'Error';
+            setTimeout(() => setButtonState(id, 'default', opts), opts.duration || 2500);
+        } else {
+            btn.textContent = opts.defaultLabel || 'Submit';
+        }
+    }
+
+    function setAiButtonState(state) {
+        const btn = document.getElementById('aiSuggestBtn');
+        const link = document.getElementById('aiUnavailableLink');
+        if (state === 'unavailable') {
+            btn.style.display = 'none';
+            link.style.display = 'block';
+            return;
+        }
+        btn.style.display = '';
+        link.style.display = 'none';
+        const opts = { defaultLabel: 'Generate with AI' };
+        if      (state === 'loading') setButtonState('aiSuggestBtn', 'loading',  { ...opts, label: 'Generating…' });
+        else if (state === 'success') setButtonState('aiSuggestBtn', 'success',  { ...opts, label: '✓ Suggestion loaded' });
+        else if (state === 'error')   setButtonState('aiSuggestBtn', 'error',    { ...opts, label: 'Failed — try again' });
+        else { btn.className = 'btn-secondary'; btn.disabled = false; btn.textContent = opts.defaultLabel; }
+    }
+
+    async function checkOllamaHealth() {
+        try {
+            const res = await fetch(`${API_BASE}/ollama/health`);
+            if (!res.ok) return;
+            const { running } = await res.json();
+            if (!running) setAiButtonState('unavailable');
+        } catch { /* silent */ }
+    }
+
+    // ── Create task ───────────────────────────────────────────────────────
+
+    async function createTask() {
+        const title = document.getElementById('title').value.trim();
+        if (!title) {
+            setButtonState('createTaskBtn', 'error', { defaultLabel: 'Create Task', label: 'Title is required' });
+            return;
         }
 
-        async function checkOllamaHealth() {
-            try {
-                const response = await fetch(`${API_BASE}/ollama/health`);
-                if (!response.ok) return;
-                const { running } = await response.json();
-                if (!running) setAiButtonState('unavailable');
-            } catch (e) {
-                // silent — don't interrupt the rest of the UI
-            }
+        const task = {
+            title,
+            description: document.getElementById('description').value.trim() || null,
+            dueDate:     document.getElementById('dueDate').value || null,
+            priority:    document.getElementById('priority').value || 'MEDIUM',
+            status:      'TODO'
+        };
+
+        setButtonState('createTaskBtn', 'loading', { defaultLabel: 'Create Task', label: 'Creating…' });
+        try {
+            const res = await fetch(`${API_BASE}/tasks`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(task)
+            });
+            if (!res.ok) throw new Error();
+
+            setButtonState('createTaskBtn', 'success', { defaultLabel: 'Create Task', label: '✓ Task created' });
+            ['title', 'description', 'dueDate'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('priority').value = 'MEDIUM';
+            refreshTasks();
+        } catch {
+            setButtonState('createTaskBtn', 'error', { defaultLabel: 'Create Task', label: 'Failed — try again' });
+        }
+    }
+
+    // ── AI suggestion ─────────────────────────────────────────────────────
+
+    async function suggestTask() {
+        const description = document.getElementById('aiDescription').value.trim();
+        if (!description) {
+            setButtonState('aiSuggestBtn', 'error', { defaultLabel: 'Generate with AI', label: 'Description cannot be blank' });
+            return;
         }
 
-        function setSectionNotice(elementId, message, type = 'info') {
-            const element = document.getElementById(elementId);
-            if (!element) return;
+        setAiButtonState('loading');
+        try {
+            const res = await fetch(`${API_BASE}/tasks/suggest`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ description })
+            });
+            if (!res.ok) throw new Error();
 
-            if (!message) {
-                element.textContent = '';
-                element.className = 'section-notice';
-                return;
-            }
-
-            element.className = `section-notice section-notice-${type}`;
-            element.textContent = message;
+            const t = await res.json();
+            document.getElementById('title').value       = t.title       || '';
+            document.getElementById('description').value = t.description || '';
+            document.getElementById('dueDate').value     = t.dueDate     || '';
+            document.getElementById('priority').value    = t.priority    || 'MEDIUM';
+            document.getElementById('aiDescription').value = '';
+            setAiButtonState('success');
+        } catch {
+            setAiButtonState('error');
         }
+    }
 
-        // Create task from manual form
-        async function createTask() {
-            const title = document.getElementById('title').value.trim();
-            const description = document.getElementById('description').value.trim();
-            const dueDate = document.getElementById('dueDate').value;
-            const priority = document.getElementById('priority').value;
-            const status = document.getElementById('status').value;
+    // ── Task list ─────────────────────────────────────────────────────────
 
-            if (!title) {
-                setSectionNotice('manualNotice', 'Please enter a task title before creating it.', 'error');
-                return;
-            }
-
-            const task = {
-                title,
-                description: description || null,
-                dueDate: dueDate || null,
-                priority: priority || 'MEDIUM',
-                status: status || 'TODO'
-            };
-
-            try {
-                setSectionNotice('manualNotice', 'Creating task...', 'info');
-                const response = await fetch(`${API_BASE}/tasks`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(task)
-                });
-
-                if (!response.ok) throw new Error('Failed to create task');
-
-                setSectionNotice('manualNotice', 'Task created successfully!', 'success');
-                document.getElementById('title').value = '';
-                document.getElementById('description').value = '';
-                document.getElementById('dueDate').value = '';
-                document.getElementById('priority').value = '';
-                document.getElementById('status').value = '';
-                
-                refreshTasks();
-            } catch (error) {
-                setSectionNotice('manualNotice', 'Error creating task: ' + error.message, 'error');
-            }
+    async function refreshTasks() {
+        try {
+            const res = await fetch(`${API_BASE}/tasks`);
+            if (!res.ok) throw new Error();
+            currentTasks = await res.json();
+            renderTasks(currentTasks);
+        } catch {
+            document.getElementById('taskList').innerHTML =
+                '<div class="empty-state">Could not load tasks.</div>';
         }
+    }
 
-        // Get AI suggestion
-        async function suggestTask() {
-            const description = document.getElementById('aiDescription').value.trim();
-
-            if (!description) {
-                setSectionNotice('manualNotice', 'Please describe what you need to do before requesting a suggestion.', 'error');
-                return;
-            }
-
-            try {
-                setAiButtonState('loading');
-                const response = await fetch(`${API_BASE}/tasks/suggest`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ description })
-                });
-
-                if (!response.ok) throw new Error('Failed to get suggestion');
-
-                const suggestedTask = await response.json();
-
-                document.getElementById('title').value = suggestedTask.title || '';
-                document.getElementById('description').value = suggestedTask.description || '';
-                document.getElementById('dueDate').value = suggestedTask.dueDate || '';
-                document.getElementById('priority').value = suggestedTask.priority || 'MEDIUM';
-                document.getElementById('status').value = suggestedTask.status || 'TODO';
-
-                document.getElementById('aiDescription').value = '';
-                setAiButtonState('complete');
-            } catch (error) {
-                setAiButtonState('default');
-                setSectionNotice('manualNotice', 'Error getting suggestion: ' + error.message, 'error');
-            }
+    function renderTasks(tasks) {
+        const taskList = document.getElementById('taskList');
+        if (!tasks || tasks.length === 0) {
+            taskList.innerHTML = '<div class="empty-state">No tasks yet. Create one to get started.</div>';
+            return;
         }
+        taskList.innerHTML = tasks.map(buildTaskCard).join('');
+    }
 
-        // Refresh task list
-        async function refreshTasks() {
-            try {
-                const response = await fetch(`${API_BASE}/tasks`);
-                if (!response.ok) throw new Error('Failed to fetch tasks');
+    const SVG_CIRCLE_EMPTY = `<svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="7" stroke="currentColor" stroke-width="1.5"/></svg>`;
+    const SVG_CIRCLE_CHECKED = `<svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="8.5" fill="currentColor"/><path d="M5.5 8.5l2 2 4-4" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const SVG_PLAY_OUTLINE = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M4.5 2.8l5.5 3.7-5.5 3.7V2.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>`;
+    const SVG_PLAY_FILLED  = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M4.5 2.8l5.5 3.7-5.5 3.7V2.8z" fill="currentColor" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>`;
 
-                const tasks = await response.json();
-                renderTasks(tasks);
-            } catch (error) {
-                showAlert('Error loading tasks: ' + error.message, 'error');
-            }
-        }
+    function buildTaskCard(task) {
+        const isDone       = task.status === 'DONE';
+        const isInProgress = task.status === 'IN_PROGRESS';
+        const stateClass   = isDone ? ' is-done' : isInProgress ? ' is-in-progress' : '';
+        const pClass       = 'p-' + task.priority.toLowerCase();
+        const circleIcon   = isDone ? SVG_CIRCLE_CHECKED : SVG_CIRCLE_EMPTY;
+        const playIcon     = isInProgress ? SVG_PLAY_FILLED : SVG_PLAY_OUTLINE;
 
-        // Render tasks
-        function renderTasks(tasks) {
-            const taskList = document.getElementById('taskList');
-
-            if (!tasks || tasks.length === 0) {
-                taskList.innerHTML = '<div class="empty-state"><p>No tasks yet. Create one to get started!</p></div>';
-                return;
-            }
-
-            taskList.innerHTML = tasks.map(task => `
-                <div class="task-item">
-                    <div class="task-title">${escapeHtml(task.title)}</div>
-                    ${task.description ? `<div class="task-description">${escapeHtml(task.description)}</div>` : ''}
-                    <div class="task-meta">
-                        <span class="badge priority-${task.priority.toLowerCase()}">${task.priority}</span>
-                        <span class="badge status-${task.status.toLowerCase()}">${formatStatus(task.status)}</span>
-                        ${task.dueDate ? `<span style="color: #666;">📅 ${task.dueDate}</span>` : ''}
-                    </div>
-                    <div class="task-actions">
-                        <button onclick="deleteTask(${task.id})">Delete</button>
+        return `
+        <div class="task-item ${pClass}${stateClass}" data-id="${task.id}">
+            <div class="task-header">
+                <button class="btn-icon btn-circle-complete" onclick="toggleComplete(${task.id})" title="${isDone ? 'Mark incomplete' : 'Mark complete'}">${circleIcon}</button>
+                <div class="task-title">${escapeHtml(task.title)}</div>
+                <div class="task-header-right">
+                    <button class="btn-icon btn-in-progress" onclick="toggleInProgress(${task.id})" title="${isInProgress ? 'Mark to do' : 'Mark in progress'}">${playIcon}</button>
+                    <div class="task-menu-wrapper">
+                        <button class="task-menu-btn" onclick="toggleMenu(event,${task.id})" title="Options">•••</button>
+                        <div class="task-menu-dropdown" id="menu-${task.id}">
+                            <button onclick="openEditForm(${task.id})">Edit</button>
+                            <button class="menu-delete" onclick="deleteTask(${task.id})">Delete</button>
+                        </div>
                     </div>
                 </div>
-            `).join('');
+            </div>
+            ${task.description ? `<div class="task-description">${escapeHtml(task.description)}</div>` : ''}
+            <div class="task-meta">
+                <span class="badge priority-${task.priority.toLowerCase()}">${task.priority}</span>
+                <span class="badge status-${task.status.toLowerCase()}">${formatStatus(task.status)}</span>
+                ${task.dueDate ? `<span class="due-date">${task.dueDate}</span>` : ''}
+            </div>
+        </div>`;
+    }
+
+    // ── 3-dot menu ────────────────────────────────────────────────────────
+
+    function toggleMenu(event, id) {
+        event.stopPropagation();
+        const menu = document.getElementById(`menu-${id}`);
+        const wasOpen = menu.classList.contains('open');
+        document.querySelectorAll('.task-menu-dropdown.open').forEach(m => m.classList.remove('open'));
+        if (!wasOpen) menu.classList.add('open');
+    }
+
+    // ── Inline edit ───────────────────────────────────────────────────────
+
+    function openEditForm(id) {
+        const task = currentTasks.find(t => t.id === id);
+        if (!task) return;
+
+        const card = document.querySelector(`.task-item[data-id="${id}"]`);
+        if (!card) return;
+
+        card.innerHTML = `
+            <div class="task-edit-form">
+                <input type="text" id="et-title-${id}" value="${escapeAttr(task.title)}" placeholder="Title">
+                <textarea id="et-desc-${id}" placeholder="Description">${escapeHtml(task.description || '')}</textarea>
+                <div class="task-edit-row">
+                    <input type="date" id="et-date-${id}" value="${task.dueDate || ''}">
+                    <select id="et-priority-${id}">
+                        <option value="LOW"    ${task.priority==='LOW'    ?'selected':''}>Low</option>
+                        <option value="MEDIUM" ${task.priority==='MEDIUM' ?'selected':''}>Medium</option>
+                        <option value="HIGH"   ${task.priority==='HIGH'   ?'selected':''}>High</option>
+                    </select>
+                </div>
+                <select id="et-status-${id}">
+                    <option value="TODO"        ${task.status==='TODO'        ?'selected':''}>To Do</option>
+                    <option value="IN_PROGRESS" ${task.status==='IN_PROGRESS' ?'selected':''}>In Progress</option>
+                    <option value="DONE"        ${task.status==='DONE'        ?'selected':''}>Done</option>
+                </select>
+                <div class="task-edit-actions">
+                    <button onclick="saveEdit(${id})">Save</button>
+                    <button onclick="refreshTasks()" class="btn-secondary">Cancel</button>
+                </div>
+            </div>`;
+    }
+
+    async function saveEdit(id) {
+        const title = document.getElementById(`et-title-${id}`).value.trim();
+        if (!title) return;
+
+        const payload = {
+            title,
+            description: document.getElementById(`et-desc-${id}`).value.trim()     || null,
+            dueDate:     document.getElementById(`et-date-${id}`).value              || null,
+            priority:    document.getElementById(`et-priority-${id}`).value,
+            status:      document.getElementById(`et-status-${id}`).value
+        };
+
+        try {
+            const res = await fetch(`${API_BASE}/tasks/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error();
+            refreshTasks();
+        } catch {
+            refreshTasks(); // restore card on failure
         }
+    }
 
-        // Delete task
-        async function deleteTask(id) {
-            if (!confirm('Are you sure you want to delete this task?')) return;
+    // ── Status toggles ────────────────────────────────────────────────────
 
-            try {
-                const response = await fetch(`${API_BASE}/tasks/${id}`, {
-                    method: 'DELETE'
-                });
+    async function updateTaskStatus(id, newStatus) {
+        const task = currentTasks.find(t => t.id === id);
+        if (!task) return;
+        try {
+            const res = await fetch(`${API_BASE}/tasks/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...task, status: newStatus })
+            });
+            if (!res.ok) throw new Error();
+            refreshTasks();
+        } catch { /* silent */ }
+    }
 
-                if (!response.ok) throw new Error('Failed to delete task');
+    function toggleComplete(id) {
+        const task = currentTasks.find(t => t.id === id);
+        if (!task) return;
+        updateTaskStatus(id, task.status === 'DONE' ? 'TODO' : 'DONE');
+    }
 
-                showAlert('Task deleted successfully!', 'success');
-                refreshTasks();
-            } catch (error) {
-                showAlert('Error deleting task: ' + error.message, 'error');
-            }
-        }
+    function toggleInProgress(id) {
+        const task = currentTasks.find(t => t.id === id);
+        if (!task || task.status === 'DONE') return;
+        updateTaskStatus(id, task.status === 'IN_PROGRESS' ? 'TODO' : 'IN_PROGRESS');
+    }
 
-        // Show alert message
-        function showAlert(message, type) {
-            const container = document.getElementById('alertContainer');
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.textContent = message;
-            container.innerHTML = '';
-            container.appendChild(alert);
+    // ── Delete ────────────────────────────────────────────────────────────
 
-            if (type !== 'error') {
-                setTimeout(() => alert.remove(), 3000);
-            }
-        }
+    async function deleteTask(id) {
+        if (!confirm('Delete this task?')) return;
+        try {
+            const res = await fetch(`${API_BASE}/tasks/${id}`, { method: 'DELETE' });
+            if (!res.ok) throw new Error();
+            refreshTasks();
+        } catch { /* silent — task remains visible if delete failed */ }
+    }
 
-        // Utility functions
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+    // ── Utilities ─────────────────────────────────────────────────────────
 
-        function formatStatus(status) {
-            return status.replace(/_/g, ' ');
-        }
-    </script>
+    function escapeHtml(text) {
+        const d = document.createElement('div');
+        d.textContent = text;
+        return d.innerHTML;
+    }
+
+    function escapeAttr(text) {
+        return (text || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function formatStatus(status) { return status.replace(/_/g, ' '); }
+</script>
 </body>
 </html>

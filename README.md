@@ -1,4 +1,4 @@
-# AI Task Manager
+# Overdo
 
 A Spring Boot REST API for personal task management with AI-powered task suggestions using Ollama Mistral. Built with Java 17, Spring Boot, H2 database, and a responsive web UI.
 
@@ -12,9 +12,7 @@ A Spring Boot REST API for personal task management with AI-powered task suggest
 - [Quick Start](#quick-start)
   - [1. Install Ollama and Mistral](#1-install-ollama-and-download-mistral-model-for-ai-suggestions)
   - [2. Run the Application](#2-run-the-application)
-- [API Endpoints](#api-endpoints)
-  - [Task Management](#task-management)
-  - [AI-Powered Task Suggestions](#ai-powered-task-suggestions)
+
 - [Configuration](#configuration)
 - [Development](#development)
 - [Troubleshooting](#troubleshooting)
@@ -80,95 +78,6 @@ The API will start on http://localhost:8080 once you see the console message, "`
 
 
 **Note:** The AI generates a task object but does NOT automatically save it. You can review it and then create it with the POST /tasks endpoint by clicking Create Task on the UI.
-
-## API Endpoints
-
-### Task Management
-
-#### Create Task
-```bash
-POST /tasks
-Content-Type: application/json
-
-{
-  "title": "Buy groceries",
-  "description": "Milk, eggs, bread",
-  "dueDate": "2024-01-15",
-  "priority": "HIGH",
-  "status": "TODO"
-}
-```
-
-**Response:** `201 Created`
-```json
-{
-  "id": 1,
-  "title": "Buy groceries",
-  "description": "Milk, eggs, bread",
-  "dueDate": "2024-01-15",
-  "priority": "HIGH",
-  "status": "TODO",
-  "createdAt": "2024-01-10"
-}
-```
-
-#### Get All Tasks
-```bash
-GET /tasks
-```
-
-**Response:** `200 OK` - Array of all tasks
-
-#### Get Task by ID
-```bash
-GET /tasks/{id}
-```
-
-**Response:** `200 OK` or `404 Not Found`
-
-#### Update Task
-```bash
-PUT /tasks/{id}
-Content-Type: application/json
-
-{
-  "title": "Buy groceries",
-  "status": "DONE",
-  "priority": "MEDIUM"
-}
-```
-
-**Response:** `200 OK` - Updated task or `404 Not Found`
-
-#### Delete Task
-```bash
-DELETE /tasks/{id}
-```
-
-**Response:** `204 No Content` or `404 Not Found`
-
-### AI-Powered Task Suggestions
-
-#### Generate Task from Description
-```bash
-POST /tasks/suggest
-Content-Type: application/json
-
-{
-  "description": "I need to finish the project report by next Friday with charts and analysis"
-}
-```
-
-**Response:** `200 OK`
-```json
-{
-  "title": "Finish project report",
-  "description": "Create charts and analysis for project report",
-  "dueDate": "2024-01-19",
-  "priority": "HIGH",
-  "status": "TODO"
-}
-```
 
 
 ## Configuration
