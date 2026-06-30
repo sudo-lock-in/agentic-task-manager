@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 @AllArgsConstructor
 @Builder
 public class SuggestTaskRequest {
-
+    // Handles user input box
     @NotBlank(message = "description is required")
     private String description;
 }

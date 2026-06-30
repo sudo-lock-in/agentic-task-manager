@@ -34,7 +34,7 @@ public class OllamaService {
             return parseTaskFromResponse(response, description);
         } catch (Exception e) {
             log.error("Error calling Ollama for task suggestion", e);
-            // Fallback: create basic task from description
+            // Fallback: create basic task from entered prompt
             return Task.builder()
                     .title(description.length() > 100 ? description.substring(0, 100) : description)
                     .description(description)
@@ -44,6 +44,7 @@ public class OllamaService {
         }
     }
 
+    // Detects if Ollama is on based on the url it responds at 
     public boolean isOllamaRunning() {
         try {
             restTemplate.getForObject(ollamaConfig.getBaseUrl() + "/api/tags", Map.class);
@@ -53,6 +54,7 @@ public class OllamaService {
         }
     }
 
+    // Prompt to generate the tasks using user description
     private String buildTaskSuggestionPrompt(String userDescription) {
         String today = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
         return String.format("""
@@ -68,6 +70,7 @@ public class OllamaService {
                 Return only valid JSON:""", today, userDescription);
     }
 
+    // Calling method to the model
     private String callOllama(String prompt) {
         try {
             Map<String, Object> requestBody = new HashMap<>();
@@ -93,6 +96,9 @@ public class OllamaService {
         }
     }
 
+
+    // Parsing methods
+    
     private Task parseTaskFromResponse(String jsonResponse, String userDescription) {
         try {
             String cleaned = stripMarkdownCodeFences(jsonResponse);

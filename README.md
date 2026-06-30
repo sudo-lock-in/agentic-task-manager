@@ -1,4 +1,4 @@
-# Task Manager API with AI Suggestions
+# AI Task Manager
 
 A Spring Boot REST API for personal task management with AI-powered task suggestions using Ollama Mistral. Built with Java 17, Spring Boot, H2 database, and a responsive web UI.
 
@@ -23,21 +23,21 @@ A Spring Boot REST API for personal task management with AI-powered task suggest
 
 ## Tech Stack
 
-- **Java 17** - Language
-- **Spring Boot 3.3.0** - Framework
+- **Java 17** - Programming language
+- **Spring Boot 3.3.0** - Application production framework
 - **Spring Data JPA** - Database access
 - **H2 Database** - In-memory database
 - **Gradle 7+** - Build tool
 - **JUnit 5** - Testing framework
-- **Mockito** - Mocking library
+- **Mockito** - Mocking library for testing
 - **Lombok** - Boilerplate reduction
 - **Ollama Mistral** - AI integration
-- **Vanilla JavaScript** - Frontend
+- **HTML w/ internal CSS & JavaScript** - UI design & front-end
 
 ## Features
 
 - **CRUD Operations**: Create, read, update, delete tasks
-- **Task Filtering**: Filter by status, priority, date range, or search by title
+<!-- - **Task Filtering**: Filter by status, priority, date range, or search by title -->
 - **AI Suggestions**: Generate task suggestions from natural language using Ollama Mistral
 - **Web UI**: Responsive single-page application for task management
 - **Comprehensive Tests**: 26 unit and integration tests

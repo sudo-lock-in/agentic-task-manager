@@ -14,7 +14,7 @@ import java.util.Map;
 public class OllamaHealthController {
 
     private final OllamaService ollamaService;
-
+    // Checks if ollama is running to provide any warnings
     @GetMapping("/health")
     public ResponseEntity<Map<String, Boolean>> health() {
         return ResponseEntity.ok(Map.of("running", ollamaService.isOllamaRunning()));

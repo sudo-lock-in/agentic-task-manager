@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "ollama")
 @Data
 public class OllamaConfig {
-    private String baseUrl = "http://localhost:11434";
+    private String baseUrl = "http://localhost:11434"; // This is where ollama listens from
     private String model = "mistral";
 }
