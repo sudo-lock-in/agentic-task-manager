@@ -2,7 +2,7 @@
 
 A Spring Boot REST API for personal task management with AI-powered task suggestions using Ollama Mistral. Built with Java 17, Spring Boot, H2 database, and a responsive web UI.
 
-![Dark theme task manager application on startup](images/taskmanager.png)
+![Dark theme task manager application on startup](images/app.png)
 
 ## Table of Contents
 
